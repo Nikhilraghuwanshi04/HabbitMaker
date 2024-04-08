@@ -1,25 +1,22 @@
-import logo from './logo.svg';
+import React,{useState} from 'react'
+import Front from './Components/Front'
 import './App.css';
-
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import Data from './Components/Data';
+export default function App() {
+  const[habitList,setHabitList]=useState([]);
+  function addToHabitlist(task,place,purpose,date){
+    const list={task , place , purpose , date};
+     setHabitList([...habitList,list]);
+  }
+  function removeFromHabitList(index) {
+    const newlist = [...habitList];
+    newlist.splice(index, 1);
+    setHabitList(newlist);
 }
-
-export default App;
+  return (
+    <div className='habitlist'>
+      <Front addToHabitlist={addToHabitlist}/>
+      <Data habitList={habitList} removeFromHabitList={removeFromHabitList}/>
+    </div>
+  )
+}
